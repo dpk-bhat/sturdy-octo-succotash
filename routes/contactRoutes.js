@@ -5,15 +5,9 @@ const router = express.Router();
 const contactController = require('./../controllers/contactController');
 
 //route method is used to add a path and action to perform when the path matches
-router.route("/").get(contactController.getContacts);
+router.route("/").get(contactController.getContacts).post(contactController.createContact);
 
-router.route("/").post(contactController.createContact);
-
-router.route("/:id").get(contactController.getContact);
-
-router.route("/:id").put(contactController.updateContact);
-
-router.route("/:id").delete(contactController.deleteContact);
+router.route("/:id").get(contactController.getContact).put(contactController.updateContact).delete(contactController.deleteContact);
 
 // exporting the route to be used by server
 module.exports = router; 
