@@ -1,7 +1,12 @@
 const express = require("express");
 const errorHandler = require("./middleware/errorHandler");
+const connectDb = require("./config/dbConnection");
 // library to load the .env file to process.env
 const dotEnv = require("dotenv").config();
+
+// use mongoose to connect to mongodb using connection string
+connectDb();
+
 // An instance of Express
 const app = express();
 
