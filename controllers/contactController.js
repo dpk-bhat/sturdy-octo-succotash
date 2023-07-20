@@ -1,4 +1,8 @@
 const asyncHandler = require("express-async-handler");
+const { default: mongoose } = require("mongoose");
+/**
+ * @type {mongoose.Model}
+ */
 const Contact = require("../models/contactModel");
 
 //@desc Get all contacts
@@ -28,21 +32,39 @@ const createContact = asyncHandler(async (req, res) => {
 //@route GET api/contacts/:id
 //@access public
 const getContact = asyncHandler(async (req, res) => {
-    res.status(200).json({ message: `Get contact ${req.params.id}` });
+    const contact = await Contact.findById(req.params.id);
+    if (!contact) {
+        res.status(404);
+        throw new Error("Contact not found");
+    }
+    res.status(200).json({ result: contact, message: `Get contact ${req.params.id}` });
 });
 
 //@desc update a contact
 //@route PUT api/contacts/:id
 //@access public
 const updateContact = asyncHandler(async (req, res) => {
-    res.status(200).json({ message: `Update contact ${req.params.id}` });
+    const contact = await Contact.findById(req.params.id);
+    if (!contact) {
+        res.status(404);
+        throw new Error("Contact not found");
+    }
+    const updateContact = await Contact.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    res.status(200).json({ result: updateContact, message: `Update contact ${req.params.id}` });
 });
 
 //@desc delete a contact
 //@route DELETE api/contacts
 //@access public
 const deleteContact = asyncHandler(async (req, res) => {
-    res.status(200).json({ message: `Delete contact ${req.params.id}` });
+    const contact = await Contact.findById(req.params.id);
+    if (!contact) {
+        res.status(404);
+        throw new Error("Contact not found");
+    }
+    await Contact.findByIdAndRemove(req.params.id);
+    console.log(contact);
+    res.status(200).json({ result: contact, message: `Delete contact ${req.params.id}` });
 });
 
 
