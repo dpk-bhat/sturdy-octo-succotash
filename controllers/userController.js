@@ -26,7 +26,12 @@ const createUser = asyncHandler(async (req, res) => {
         username, email,
         password: hashedPassword
     })
-    res.status(201).json({ result: { email: newUser.email, username: newUser.username }, message: "Get all contacts" })
+    if (newUser) {
+        res.status(201).json({ result: { email: newUser.email, username: newUser.username }, message: "User created successfully" });
+    } else {
+        res.status(400);
+        throw new Error("User data is invalid");
+    }
 });
 
 module.exports = { createUser }
