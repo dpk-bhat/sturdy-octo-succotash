@@ -20,7 +20,7 @@ const errorHandler = (err, req, res, next) => {
             res.json({ title: "Internal Server Error", message: err.message, stackTrace: err.stack });
             break;
         default:
-            res.json({ statusCode, title: "All good" });
+            res.json({ statusCode, title: "All good, but:", message: err.message, stackTrace: err.stack });
             break;
     }
 };

@@ -20,6 +20,7 @@ app.use(express.json());
 
 // here using this overloaded method: for '/api/contacts' path, use this router exported by "./routes/contactRoutes"
 app.use('/api/contacts', require("./routes/contactRoutes"));
+app.use('/api/users', require("./routes/userRoutes.js"));
 
 // adding a errorHandler as a middleware to parse and present the error message
 app.use(errorHandler);
