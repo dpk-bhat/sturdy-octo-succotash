@@ -39,7 +39,6 @@ const createUser = asyncHandler(async (req, res) => {
 //@desc Login
 //@route POST api/users/login
 //@access public
-
 const loginUser = asyncHandler(async (req, res) => {
     const { email, password } = req.body;
     if (!email || !password) {
@@ -62,7 +61,16 @@ const loginUser = asyncHandler(async (req, res) => {
         res.status(401);
         throw new Error("Email or password is not valid");
     }
-
 });
 
-module.exports = { createUser, loginUser }
+
+//@desc Current user info
+//@route POST api/users/current
+//@access private
+const currentUser = asyncHandler(async (req, res) => {
+    res.status(200);
+    res.json(req.user);
+
+})
+
+module.exports = { createUser, loginUser, currentUser }
