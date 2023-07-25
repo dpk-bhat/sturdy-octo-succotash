@@ -1,6 +1,11 @@
 const mongoose = require('mongoose');
 
 const userModel = mongoose.Schema({
+    user_id: {
+        type: mongoose.Schema.Types.ObjectId,
+        required: true,
+        ref: "User"
+    },
     username: {
         type: String,
         required: [true, "Please add username"]
